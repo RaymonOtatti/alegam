@@ -1,0 +1,1215 @@
+/* ==========================================================================
+   ALEGAM — ESTILO EDITORIAL LINKLETTER.PRESS
+   Tipografía orgánica, paleta de tinta y papel, hairlines sutiles, 
+   máxima legibilidad y simpleza para personas +50 años.
+   ========================================================================== */
+
+:root {
+  /* Tipografías oficiales LinkLetter */
+  --font-display: 'Fraunces', 'New Spirit', Georgia, serif;
+  --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Paleta cromática LinkLetter */
+  --color-paper: #ffffff;
+  --color-tint: #f6f5f5;          /* Fondo papel suave cálido */
+  --color-tint-subtle: #fbf9f6;
+  --color-ink: #1a1a1a;           /* Tinta casi negra */
+  --color-brown: #3b2c20;         /* Café espresso oscuro principal */
+  --color-ink-secondary: #534a39; /* Tinta secundaria para texto de apoyo */
+  --color-ink-muted: #736b5e;
+  --color-rust: #d05d38;          /* Terracota cálido para acentos */
+  --color-rust-hover: #b75131;
+  --color-sage: #6a7542;          /* Verde salvia natural */
+  --color-whatsapp: #15803d;      /* Verde WhatsApp accesible */
+  --color-whatsapp-hover: #166534;
+  --color-hairline: #e1e1e1;      /* Filetes y bordes editoriales */
+  --color-hairline-dark: #d5d0c7;
+
+  /* Escala de espaciado y radios LinkLetter */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Sombras físicas sobre papel */
+  --shadow-subtle: 0 1px 3px rgba(26, 26, 26, 0.05);
+  --shadow-card: 0 4px 14px rgba(26, 26, 26, 0.06);
+  --shadow-elevated: 0 8px 24px rgba(26, 26, 26, 0.09);
+
+  /* Tamaño de fuente base amigable para +50 */
+  --base-font-size: 18px;
+  --line-height-body: 1.6;
+}
+
+/* Modos de accesibilidad de fuente en pantalla */
+body.font-size-large {
+  --base-font-size: 20px;
+}
+body.font-size-xlarge {
+  --base-font-size: 22px;
+}
+
+/* Reset y caja */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--base-font-size);
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-tint);
+  color: var(--color-brown);
+  line-height: var(--line-height-body);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Contenedor central LinkLetter (máx 1112px / 1200px) */
+.container {
+  width: 100%;
+  max-width: 1112px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Tipografía de títulos estilo New Spirit */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   HEADER / NAVBAR (ESTRUCTURA LINKLETTER: LOGO FIJO + NAV CENTRADO)
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--color-tint);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.site-header.scrolled {
+  background-color: rgba(246, 245, 245, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom-color: var(--color-hairline);
+  box-shadow: 0 4px 16px rgba(26, 26, 26, 0.03);
+}
+
+.nav-wrapper {
+  display: flex;
+  height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .nav-wrapper {
+    height: 80px;
+  }
+}
+
+/* El logo está en su ancla fija sin saltos ni redimensionamientos */
+.brand-box {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  width: 160px;
+}
+
+.brand-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Menú de navegación centrado */
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+}
+
+@media (min-width: 860px) {
+  .nav-center {
+    display: block;
+  }
+}
+
+.nav-links-list {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-item-link {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-brown);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+}
+
+.nav-item-link:hover {
+  color: var(--color-rust);
+}
+
+/* Lado derecho: botón de acción + control de accesibilidad */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Botón accesible A- / A+ */
+.font-scale-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-hairline);
+  background: var(--color-paper);
+  border-radius: var(--radius-pill);
+  padding: 2px 4px;
+}
+
+.font-scale-btn {
+  background: transparent;
+  border: none;
+  padding: 5px 9px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+}
+
+.font-scale-btn.active {
+  background: var(--color-brown);
+  color: var(--color-paper);
+}
+
+/* Botón principal estilo LinkLetter */
+.btn-linkletter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--color-brown);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-brown);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-linkletter:hover {
+  background-color: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.btn-linkletter-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: transparent;
+  color: var(--color-brown);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-hairline-dark);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-linkletter-outline:hover {
+  background-color: #ffffff;
+  border-color: var(--color-brown);
+}
+
+.btn-whatsapp-solid {
+  background-color: var(--color-whatsapp);
+  border-color: var(--color-whatsapp);
+  color: #ffffff;
+}
+
+.btn-whatsapp-solid:hover {
+  background-color: var(--color-whatsapp-hover);
+  border-color: var(--color-whatsapp-hover);
+}
+
+/* Botón menú móvil */
+.mobile-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-brown);
+  font-size: 18px;
+}
+
+@media (min-width: 860px) {
+  .mobile-nav-btn {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   HERO SECTION (ESTILO EDITORIAL LINKLETTER)
+   ========================================================================== */
+
+.hero-editorial {
+  padding-top: 48px;
+  padding-bottom: 56px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .hero-editorial {
+    padding-top: 80px;
+    padding-bottom: 72px;
+  }
+}
+
+.hero-container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-rust);
+  margin-bottom: 24px;
+}
+
+.hero-headline {
+  font-size: 2.6rem;
+  line-height: 1.15;
+  color: var(--color-brown);
+  margin-bottom: 22px;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .hero-headline {
+    font-size: 3.5rem;
+    line-height: 1.12;
+  }
+}
+
+.hero-headline em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-rust);
+}
+
+.hero-subhead {
+  font-size: 1.18rem;
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+  max-width: 680px;
+  margin: 0 auto 36px auto;
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.hero-cta-group .btn-linkletter,
+.hero-cta-group .btn-linkletter-outline {
+  padding: 14px 26px;
+  font-size: 16px;
+  border-radius: var(--radius-md);
+  min-height: 52px;
+}
+
+.hero-trust-note {
+  font-size: 14px;
+  color: var(--color-ink-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-trust-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Riel visual de fotos reales con estética de imprenta */
+.hero-visual-rail {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .hero-visual-rail {
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+  }
+}
+
+.paper-card-frame {
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+  box-shadow: var(--shadow-card);
+}
+
+.paper-card-image {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+.paper-card-caption {
+  padding: 16px 8px 4px 8px;
+}
+
+.paper-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-brown);
+  margin-bottom: 4px;
+}
+
+.paper-card-desc {
+  font-size: 14px;
+  color: var(--color-ink-secondary);
+}
+
+/* ==========================================================================
+   SECCIONES EDITORIALES (FONDO BLANCO Y FONDO PAPEL)
+   ========================================================================== */
+
+section {
+  padding: 80px 0;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.section-white {
+  background-color: var(--color-paper);
+}
+
+.section-tint {
+  background-color: var(--color-tint);
+}
+
+.section-header-editorial {
+  max-width: 740px;
+  margin-bottom: 48px;
+}
+
+.section-header-editorial.centered {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.section-kicker {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-rust);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.section-heading-display {
+  font-size: 2.2rem;
+  line-height: 1.2;
+  color: var(--color-brown);
+  margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .section-heading-display {
+    font-size: 2.75rem;
+  }
+}
+
+.section-standfirst {
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+}
+
+/* ==========================================================================
+   SERVICIOS: GRILLA DE PAPEL Y TINTA (EDITORIAL CARDS)
+   ========================================================================== */
+
+.services-editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .services-editorial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .services-editorial-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.editorial-card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-xl);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: var(--shadow-subtle);
+}
+
+.editorial-card:hover {
+  border-color: var(--color-hairline-dark);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.card-num-kicker {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--color-rust);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.card-service-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  line-height: 1.25;
+  color: var(--color-brown);
+  margin-bottom: 14px;
+}
+
+.card-service-text {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--color-ink-secondary);
+  margin-bottom: 22px;
+}
+
+.card-bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 26px;
+  border-top: 1px solid var(--color-hairline);
+  padding-top: 16px;
+}
+
+.card-bullet-item {
+  font-size: 0.92rem;
+  color: var(--color-brown);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.card-bullet-item::before {
+  content: "—";
+  color: var(--color-rust);
+  font-weight: 700;
+}
+
+.card-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-brown);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: color 0.15s ease;
+}
+
+.card-action-link:hover {
+  color: var(--color-rust);
+}
+
+/* ==========================================================================
+   MANIFIESTO Y VERDADES LEGALES (TRANQUILIDAD PARA +50)
+   ========================================================================== */
+
+.manifesto-box {
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-2xl);
+  padding: 40px;
+  margin-bottom: 48px;
+  box-shadow: var(--shadow-subtle);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .manifesto-box {
+    grid-template-columns: 240px 1fr;
+    padding: 48px;
+  }
+}
+
+.manifesto-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-hairline);
+}
+
+.manifesto-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.55;
+  color: var(--color-brown);
+  margin-bottom: 16px;
+}
+
+.manifesto-author-sign {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-rust);
+}
+
+/* Comparativa: Lo que dice la prepaga vs Lo que dice la ley */
+.truth-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .truth-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.truth-card {
+  padding: 32px;
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-xl);
+}
+
+.truth-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.truth-pill.defense {
+  background: #fdf3f0;
+  color: var(--color-rust-hover);
+  border: 1px solid #f8dcd4;
+}
+
+.truth-pill.law {
+  background: #f3f6eb;
+  color: var(--color-sage);
+  border: 1px solid #e1e9cc;
+}
+
+.truth-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--color-brown);
+  margin-bottom: 12px;
+}
+
+.truth-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+}
+
+/* ==========================================================================
+   CÓMO FUNCIONA (PASO A PASO ESTILO HOW IT WORKS LINKLETTER)
+   ========================================================================== */
+
+.how-rail {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .how-rail {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.how-step {
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  position: relative;
+}
+
+.how-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-rust);
+  margin-bottom: 14px;
+  line-height: 1;
+}
+
+.how-step-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-brown);
+  margin-bottom: 10px;
+}
+
+.how-step-desc {
+  font-size: 0.95rem;
+  color: var(--color-ink-secondary);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   CASOS DE ÉXITO Y JURISPRUDENCIA (EDITORIAL LIST)
+   ========================================================================== */
+
+.cases-editorial-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .cases-editorial-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.case-editorial-card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.case-court-tag {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-ink-muted);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.case-main-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--color-brown);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.case-autos-text {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-ink-muted);
+  margin-bottom: 18px;
+}
+
+.case-favorable-outcome {
+  background: #fbf8f3;
+  border-left: 3px solid var(--color-rust);
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-brown);
+}
+
+/* ==========================================================================
+   LOS SOCIOS / EL ESTUDIO (EDITORIAL BIOS)
+   ========================================================================== */
+
+.team-editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .team-editorial-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.partner-box {
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.partner-img-frame {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  margin-bottom: 22px;
+  border: 1px solid var(--color-hairline);
+}
+
+.partner-img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.partner-display-name {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  color: var(--color-brown);
+  margin-bottom: 4px;
+}
+
+.partner-creds {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-rust);
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
+}
+
+.partner-bio-text {
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--color-ink-secondary);
+  margin-bottom: 18px;
+}
+
+.partner-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-brown);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.partner-link:hover {
+  color: var(--color-rust);
+}
+
+/* ==========================================================================
+   FAQS (ACORDEONES EDITORIALES LINKLETTER)
+   ========================================================================== */
+
+.faq-editorial-list {
+  max-width: 820px;
+  margin: 0 auto;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.faq-editorial-item {
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.faq-btn {
+  width: 100%;
+  padding: 24px 8px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  color: var(--color-brown);
+  cursor: pointer;
+  line-height: 1.35;
+}
+
+.faq-btn:hover {
+  color: var(--color-rust);
+}
+
+.faq-indicator {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  color: var(--color-ink-muted);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.faq-editorial-item.open .faq-indicator {
+  transform: rotate(45deg);
+  color: var(--color-rust);
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease-out, padding 0.25s ease-out;
+  padding: 0 8px;
+}
+
+.faq-editorial-item.open .faq-content {
+  max-height: 350px;
+  padding: 0 8px 24px 8px;
+}
+
+.faq-content-p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-ink-secondary);
+}
+
+/* ==========================================================================
+   CONTACTO DIRECTO (PÁGINA LIMPIA Y ACCESIBLE)
+   ========================================================================== */
+
+.contact-editorial-box {
+  background: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-2xl);
+  padding: 40px;
+  box-shadow: var(--shadow-card);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 860px) {
+  .contact-editorial-box {
+    grid-template-columns: 1fr 1fr;
+    padding: 56px;
+  }
+}
+
+.direct-channels-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.direct-channel-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--color-tint);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-brown);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.direct-channel-card:hover {
+  border-color: var(--color-brown);
+  background: #ffffff;
+}
+
+.channel-label {
+  font-size: 13px;
+  color: var(--color-ink-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.channel-main {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-brown);
+}
+
+/* Formulario minimalista */
+.form-field-group {
+  margin-bottom: 20px;
+}
+
+.form-field-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-brown);
+  margin-bottom: 8px;
+}
+
+.form-field-input,
+.form-field-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: var(--color-ink);
+  background: var(--color-tint);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.form-field-input:focus,
+.form-field-textarea:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--color-brown);
+}
+
+.form-field-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-success-box {
+  display: none;
+  padding: 16px;
+  background: #f3f6eb;
+  border: 1px solid #d5dec2;
+  border-radius: var(--radius-md);
+  color: #3b501d;
+  font-size: 15px;
+  margin-top: 16px;
+}
+.form-success-box.show {
+  display: block;
+}
+
+/* ==========================================================================
+   FOOTER (ESTILO LINKLETTER)
+   ========================================================================== */
+
+.site-footer-linkletter {
+  background-color: var(--color-paper);
+  border-top: 1px solid var(--color-hairline);
+  padding: 64px 0 40px 0;
+}
+
+.footer-main-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 36px;
+  margin-bottom: 48px;
+}
+
+@media (min-width: 768px) {
+  .footer-main-row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.footer-brand-side {
+  max-width: 380px;
+}
+
+.footer-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 40px;
+  list-style: none;
+}
+
+.footer-nav-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-brown);
+  text-decoration: none;
+}
+
+.footer-nav-link:hover {
+  color: var(--color-rust);
+}
+
+.footer-bottom-line {
+  border-top: 1px solid var(--color-hairline);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--color-ink-muted);
+}
+
+@media (min-width: 768px) {
+  .footer-bottom-line {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* ==========================================================================
+   BOTÓN FLOTANTE PERMANENTE DE WHATSAPP
+   ========================================================================== */
+
+.floating-wa-linkletter {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--color-brown);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 16px rgba(26, 26, 26, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.floating-wa-linkletter:hover {
+  background-color: var(--color-ink);
+  transform: translateY(-2px);
+}
+
+.wa-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #22c55e;
+}
+
+/* ==========================================================================
+   DRAWER MÓVIL
+   ========================================================================== */
+
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(26, 26, 26, 0.4);
+  display: none;
+}
+
+.mobile-overlay.active {
+  display: block;
+}
+
+.mobile-menu-pane {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 82%;
+  max-width: 340px;
+  height: 100%;
+  background: var(--color-paper);
+  z-index: 2001;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translateX(100%);
+  transition: transform 0.2s ease;
+  box-shadow: -8px 0 24px rgba(26, 26, 26, 0.1);
+}
+
+.mobile-overlay.active .mobile-menu-pane {
+  transform: translateX(0);
+}
+
+.mobile-links-col {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.mobile-link-a {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-brown);
+  text-decoration: none;
+}

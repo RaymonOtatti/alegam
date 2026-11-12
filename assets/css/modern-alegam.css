@@ -1,0 +1,1545 @@
+/* ==========================================================================
+   ALEGAM - ESTILO EDITORIAL LIQUIDGLASS (APPLE-INSPIRED DESIGN SYSTEM)
+   Especialmente diseñado para accesibilidad, alta legibilidad y usuarios 50+
+   ========================================================================== */
+
+:root {
+  /* Escala tipográfica accesible */
+  --font-base: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-editorial: 'Merriweather', 'Georgia', serif;
+  --base-size: 18px;
+  --line-height-base: 1.65;
+
+  /* Paleta de colores - Apple Health & Legal Trust */
+  --color-canvas: #f8fafc;
+  --color-canvas-subtle: #f1f5f9;
+  --color-text-main: #0f172a;        /* Azul pizarra casi negro (contraste WCAG AAA 14:1) */
+  --color-text-muted: #334155;       /* Pizarra medio para lectura suave pero contrastada */
+  --color-text-light: #64748b;
+  
+  --color-primary: #1d4ed8;          /* Zafiro médico de alta confianza */
+  --color-primary-hover: #1e40af;
+  --color-primary-light: #eff6ff;
+  
+  --color-accent-teal: #0d9488;      /* Verde salud y vida */
+  --color-accent-amber: #b45309;     /* Ámbar institucional */
+  --color-whatsapp: #16a34a;         /* Verde WhatsApp accesible */
+  --color-whatsapp-hover: #15803d;
+
+  /* Tokens Liquidglass (Apple Frost) */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-hover: rgba(255, 255, 255, 0.88);
+  --glass-bg-solid: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-border-subtle: rgba(226, 232, 240, 0.8);
+  --glass-blur: blur(24px) saturate(190%);
+  --glass-shadow: 0 16px 40px -12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
+  --glass-shadow-elevated: 0 25px 60px -15px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(15, 23, 42, 0.05);
+  --glass-inner-light: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(255, 255, 255, 0.4);
+
+  /* Curvaturas suaves estilo iOS / macOS */
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --radius-button: 16px;
+  --radius-inner: 14px;
+
+  /* Transiciones fluidas */
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Modo texto ampliado para adultos mayores (activable con botón A+) */
+body.text-large {
+  --base-size: 20px;
+}
+body.text-xlarge {
+  --base-size: 22px;
+}
+
+/* Reset y base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--base-size);
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-base);
+  font-size: 1rem;
+  line-height: var(--line-height-base);
+  color: var(--color-text-main);
+  background-color: var(--color-canvas);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Fondos ambientales difusos para dar refracción al vidrio líquido */
+.ambient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.ambient-orb-1 {
+  position: absolute;
+  top: -10%;
+  left: 15%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(219, 234, 254, 0.7) 0%, rgba(219, 234, 254, 0) 70%);
+  filter: blur(80px);
+}
+.ambient-orb-2 {
+  position: absolute;
+  top: 35%;
+  right: -5%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(204, 251, 241, 0.5) 0%, rgba(204, 251, 241, 0) 70%);
+  filter: blur(90px);
+}
+.ambient-orb-3 {
+  position: absolute;
+  bottom: 10%;
+  left: -5%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(254, 243, 199, 0.45) 0%, rgba(254, 243, 199, 0) 70%);
+  filter: blur(100px);
+}
+
+/* Contenedor central */
+.container {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN SUPERIOR
+   Requisito clave: Logo fijo e inmutable a la izquierda; Menú centrado
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  transition: background var(--transition-smooth), height var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.site-header.scrolled {
+  height: 80px;
+  background: rgba(248, 250, 252, 0.85);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--glass-border-subtle);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr auto;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+/* El logo está firmemente anclado en este contenedor inmutable */
+.brand-anchor {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 52px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  max-height: 48px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Píldora de navegación centrada flotante estilo Apple Liquidglass */
+.nav-center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-liquid-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 7px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), var(--glass-inner-light);
+  list-style: none;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 8px 16px;
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+/* Utilidades a la derecha: Teléfono directo, tamaño de fuente y CTA WhatsApp */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* Controles de accesibilidad para adultos mayores (+ tamaño fuente) */
+.font-size-control {
+  display: inline-flex;
+  align-items: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  box-shadow: var(--glass-shadow);
+}
+
+.font-size-btn {
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition-fast);
+}
+
+.font-size-btn:hover,
+.font-size-btn.active {
+  background: #ffffff;
+  color: var(--color-primary);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+.phone-quick-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-fast);
+}
+
+.phone-quick-link:hover {
+  background: #ffffff;
+  color: var(--color-primary);
+  border-color: rgba(29, 78, 216, 0.2);
+}
+
+.nav-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-primary);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 8px 20px -4px rgba(29, 78, 216, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.nav-cta-btn:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px -4px rgba(29, 78, 216, 0.45);
+}
+
+/* Botón menú móvil */
+.mobile-menu-toggle {
+  display: none;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  padding: 10px 14px;
+  cursor: pointer;
+  color: var(--color-text-main);
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   HERO SECTION - EDITORIAL Y CONFIANZA INMEDIATA
+   ========================================================================== */
+
+.hero-section {
+  padding-top: 150px;
+  padding-bottom: 70px;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(29, 78, 216, 0.08);
+  border: 1px solid rgba(29, 78, 216, 0.18);
+  color: var(--color-primary);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-size: 2.85rem;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--color-text-main);
+  margin-bottom: 24px;
+}
+
+.hero-title span.highlight {
+  color: var(--color-primary);
+}
+
+.hero-description {
+  font-size: 1.18rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  margin-bottom: 36px;
+  max-width: 580px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+/* Botones principales de alto impacto y fácil clic (+50 años) */
+.btn-primary-large {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--color-whatsapp);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.12rem;
+  padding: 18px 32px;
+  border-radius: var(--radius-button);
+  box-shadow: 0 14px 30px -6px rgba(22, 163, 74, 0.4);
+  transition: all var(--transition-fast);
+  min-height: 60px;
+}
+
+.btn-primary-large:hover {
+  background: var(--color-whatsapp-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px -6px rgba(22, 163, 74, 0.5);
+}
+
+.btn-secondary-large {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--glass-bg-solid);
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 18px 28px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--glass-border-subtle);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-fast);
+  min-height: 60px;
+}
+
+.btn-secondary-large:hover {
+  background: #ffffff;
+  border-color: rgba(29, 78, 216, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Indicadores de confianza para personas adultas */
+.trust-badges-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding-top: 10px;
+}
+
+.trust-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.trust-badge-item svg {
+  color: var(--color-accent-teal);
+  flex-shrink: 0;
+}
+
+/* Composición visual en Glassmorphism para el Hero */
+.hero-visual-card {
+  position: relative;
+  border-radius: var(--radius-card);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-elevated), var(--glass-inner-light);
+  padding: 24px;
+}
+
+.hero-main-photo-wrap {
+  position: relative;
+  border-radius: calc(var(--radius-card) - 6px);
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.hero-main-photo {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Tarjeta flotante superpuesta estilo Liquidglass */
+.floating-stat-card {
+  position: absolute;
+  bottom: -24px;
+  left: -20px;
+  background: var(--glass-bg-solid);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 16px 20px;
+  box-shadow: var(--glass-shadow-elevated);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 290px;
+}
+
+.stat-icon-bubble {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(13, 148, 136, 0.12);
+  color: var(--color-accent-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  line-height: 1.25;
+}
+
+.stat-subtitle {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+}
+
+.floating-badge-top {
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  background: #ffffff;
+  border: 1px solid var(--glass-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  box-shadow: var(--glass-shadow);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+
+.floating-badge-top .dot-live {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-whatsapp);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+}
+
+/* ==========================================================================
+   SECCIONES COMUNES - CONTENEDORES Y TIPOGRAFÍA EDITORIAL
+   ========================================================================== */
+
+section {
+  padding: 90px 0;
+  position: relative;
+}
+
+.section-head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 56px auto;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
+  margin-bottom: 18px;
+}
+
+.section-desc {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+/* Tarjeta base Liquidglass */
+.liquid-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow), var(--glass-inner-light);
+  padding: 36px 32px;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), background var(--transition-smooth);
+}
+
+.liquid-card:hover {
+  background: var(--glass-bg-hover);
+  box-shadow: var(--glass-shadow-elevated), var(--glass-inner-light);
+  transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   SERVICIOS - BENTO GRID EDITORIAL
+   ========================================================================== */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-icon-box {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.service-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+.service-text {
+  font-size: 1.02rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.service-check-list {
+  list-style: none;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.service-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  font-weight: 500;
+}
+
+.service-check-item svg {
+  color: var(--color-accent-teal);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.service-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 20px;
+  background: #ffffff;
+  border: 1px solid var(--glass-border-subtle);
+  border-radius: var(--radius-button);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.98rem;
+  transition: all var(--transition-fast);
+}
+
+.service-cta-btn:hover {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+}
+
+/* ==========================================================================
+   DERRIBANDO DUDAS Y TEMORES (RESPETO Y DIGNIDAD +50)
+   ========================================================================== */
+
+.fears-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.fear-card {
+  padding: 32px;
+}
+
+.fear-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.fear-badge.warning {
+  background: rgba(180, 83, 9, 0.1);
+  color: var(--color-accent-amber);
+}
+
+.fear-badge.success {
+  background: rgba(13, 148, 136, 0.1);
+  color: var(--color-accent-teal);
+}
+
+.fear-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--color-text-main);
+}
+
+.fear-body {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+/* El manifiesto de respeto para adultos mayores */
+.manifesto-card {
+  margin-top: 40px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 249, 255, 0.7) 100%);
+  border: 1px solid rgba(186, 230, 253, 0.8);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.manifesto-quote-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(29, 78, 216, 0.1);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.manifesto-quote-text {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.22rem;
+  line-height: 1.7;
+  color: var(--color-text-main);
+  margin-bottom: 12px;
+}
+
+.manifesto-author {
+  font-family: var(--font-base);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   CASOS DE ÉXITO Y JURISPRUDENCIA GANADA
+   ========================================================================== */
+
+.cases-section {
+  background: linear-gradient(180deg, transparent 0%, rgba(241, 245, 249, 0.5) 100%);
+}
+
+.cases-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.filter-pill {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-pill:hover,
+.filter-pill.active {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.case-item-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.case-court-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 14px;
+}
+
+.case-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text-main);
+  margin-bottom: 10px;
+}
+
+.case-card-autos {
+  font-size: 0.92rem;
+  color: var(--color-text-light);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.case-result-badge {
+  background: rgba(13, 148, 136, 0.08);
+  border: 1px solid rgba(13, 148, 136, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: #065f46;
+  font-size: 0.98rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   PASOS: CÓMO FUNCIONA (SIMPLE Y SIN VUELTAS)
+   ========================================================================== */
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+
+.step-card {
+  position: relative;
+  text-align: left;
+}
+
+.step-number-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(29, 78, 216, 0.3);
+}
+
+.step-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 10px;
+}
+
+.step-desc {
+  font-size: 0.98rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   LOS SOCIOS FUNDADORES / EL EQUIPO
+   ========================================================================== */
+
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.partner-card {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: center;
+  padding: 28px;
+}
+
+.partner-photo-wrap {
+  width: 100%;
+  height: 220px;
+  border-radius: calc(var(--radius-card) - 8px);
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.partner-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.partner-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 4px;
+}
+
+.partner-role {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.partner-bio {
+  font-size: 0.98rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.partner-linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.partner-linkedin-link:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   PREGUNTAS FRECUENTES (FAQ ACORDEÓN ACCESIBLE)
+   ========================================================================== */
+
+.faq-container {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-item {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.faq-item.active {
+  background: var(--glass-bg-hover);
+  border-color: rgba(29, 78, 216, 0.3);
+}
+
+.faq-question-btn {
+  width: 100%;
+  padding: 22px 28px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-base);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.faq-icon-cross {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.faq-item.active .faq-icon-cross {
+  transform: rotate(45deg);
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.faq-answer-pane {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-smooth), padding var(--transition-smooth);
+  padding: 0 28px;
+}
+
+.faq-item.active .faq-answer-pane {
+  max-height: 400px;
+  padding: 0 28px 24px 28px;
+}
+
+.faq-answer-text {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   FORMULARIO DE CONTACTO ACCESIBLE Y CANALES DIRECTOS
+   ========================================================================== */
+
+.contact-section-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.contact-direct-card {
+  padding: 40px;
+}
+
+.contact-channels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.contact-channel-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--glass-border-subtle);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--color-text-main);
+  transition: all var(--transition-fast);
+}
+
+.contact-channel-item:hover {
+  transform: translateX(4px);
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+.channel-icon-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.channel-icon-circle.phone {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.channel-icon-circle.whatsapp {
+  background: rgba(22, 163, 74, 0.12);
+  color: var(--color-whatsapp);
+}
+
+.channel-icon-circle.email {
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--color-accent-amber);
+}
+
+.channel-info-label {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.channel-info-val {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+/* Formulario minimalista con inputs amplios */
+.form-liquid-card {
+  padding: 40px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 16px 18px;
+  font-family: var(--font-base);
+  font-size: 1.05rem;
+  color: var(--color-text-main);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--glass-border-subtle);
+  border-radius: 14px;
+  transition: all var(--transition-fast);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.02);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit-btn {
+  width: 100%;
+  padding: 18px 24px;
+  background: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-button);
+  font-family: var(--font-base);
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -4px rgba(29, 78, 216, 0.35);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form-submit-btn:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -4px rgba(29, 78, 216, 0.45);
+}
+
+.form-feedback-notice {
+  display: none;
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+.form-feedback-notice.success {
+  display: block;
+  background: rgba(22, 163, 74, 0.1);
+  color: #15803d;
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+/* ==========================================================================
+   FOOTER EDITORIAL LIMPIO
+   ========================================================================== */
+
+.site-footer {
+  background: #ffffff;
+  border-top: 1px solid var(--glass-border-subtle);
+  padding: 60px 0 36px 0;
+  margin-top: 60px;
+}
+
+.footer-top-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.footer-brand-summary {
+  max-width: 320px;
+}
+
+.footer-logo-img {
+  max-height: 44px;
+  width: auto;
+  margin-bottom: 16px;
+}
+
+.footer-text {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.footer-col-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 18px;
+}
+
+.footer-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-link {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color var(--transition-fast);
+}
+
+.footer-link:hover {
+  color: var(--color-primary);
+}
+
+.footer-bottom-bar {
+  padding-top: 28px;
+  border-top: 1px solid var(--glass-border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.88rem;
+  color: var(--color-text-light);
+}
+
+/* ==========================================================================
+   BOTÓN FLOTANTE PERMANENTE DE WHATSAPP (ACCESIBLE PARA +50)
+   ========================================================================== */
+
+.floating-whatsapp-trigger {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-whatsapp);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 14px 22px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 12px 30px -4px rgba(22, 163, 74, 0.5), 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition: all var(--transition-smooth);
+}
+
+.floating-whatsapp-trigger:hover {
+  background: var(--color-whatsapp-hover);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 36px -4px rgba(22, 163, 74, 0.6);
+}
+
+.whatsapp-pulse-ring {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.35);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLETS Y MÓVILES)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hero-title {
+    font-size: 2.4rem;
+  }
+  .nav-grid {
+    grid-template-columns: 180px 1fr auto;
+  }
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+  .partner-card {
+    grid-template-columns: 160px 1fr;
+  }
+  .contact-section-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .site-header {
+    height: 76px;
+  }
+  .nav-center-wrapper {
+    display: none; /* Se activa mediante el menú móvil */
+  }
+  .nav-grid {
+    grid-template-columns: auto 1fr;
+  }
+  .nav-actions {
+    justify-content: flex-end;
+  }
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fears-grid {
+    grid-template-columns: 1fr;
+  }
+  .manifesto-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .manifesto-quote-icon {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-primary-large,
+  .btn-secondary-large {
+    width: 100%;
+    text-align: center;
+  }
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+  .partner-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .partner-photo-wrap {
+    max-width: 220px;
+    margin: 0 auto;
+  }
+  .partner-linkedin-link {
+    justify-content: center;
+  }
+  .floating-stat-card {
+    position: static;
+    margin-top: 16px;
+    max-width: 100%;
+  }
+  .floating-whatsapp-trigger span.label-text {
+    display: none; /* En pantallas muy pequeñas mostramos el ícono grande */
+  }
+  .floating-whatsapp-trigger {
+    padding: 16px;
+    border-radius: 50%;
+  }
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   DRAWER / MEN� M�VIL
+   ========================================================================== */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-smooth);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mobile-drawer.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-drawer-content {
+  width: 85%;
+  max-width: 360px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translateX(100%);
+  transition: transform var(--transition-smooth);
+  box-shadow: -10px 0 40px rgba(15, 23, 42, 0.15);
+}
+
+.mobile-drawer.open .mobile-drawer-content {
+  transform: translateX(0);
+}
+
+.mobile-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--glass-border-subtle);
+}
+
+.mobile-drawer-close {
+  background: var(--color-canvas-subtle);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-main);
+  cursor: pointer;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mobile-nav-link {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--color-canvas);
+  transition: all var(--transition-fast);
+}
+
+.mobile-nav-link:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.mobile-drawer-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 20px;
+  border-top: 1px solid var(--glass-border-subtle);
+}

@@ -1,0 +1,33 @@
+/* Resoluciones: listado legible, con filtros visibles y títulos completos. */
+.ds-case-tools { padding: 16px 0 24px; }
+.ds-case-tools-label { margin-bottom: 14px; }
+.ds-case-filters { gap: 8px 22px; }
+.ds-case-filter { min-height: 40px; padding: 8px 2px; border: 0; border-bottom: 1px solid #bacbd6; border-radius: 0; background: transparent; color: #485563; }
+.ds-case-filter:hover, .ds-case-filter.is-active { border-bottom-color: #2b227f; background: transparent; color: #2b227f; }
+.ds-case-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.ds-case-post { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); grid-template-rows: auto 1fr; gap: 10px 40px; height: auto; padding: clamp(22px, 2.5vw, 34px); border-radius: 10px; box-shadow: none; scroll-margin-top: 96px; }
+.ds-case-post:hover { transform: none; box-shadow: none; }
+.ds-case-tag { grid-column: 1; grid-row: 1; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: #2b227f; font-size: 12px; }
+.ds-case-title { grid-column: 1; grid-row: 2; align-self: start; margin: 0; color: #182f43; font-size: 17px; line-height: 1.45; white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+.ds-case-body { grid-column: 2; grid-row: 1 / span 2; align-self: start; max-width: 85ch; margin: 0; padding: 0 0 0 20px; border-left: 2px solid #bfd0db; color: #485563; font-size: 15px; line-height: 1.75; font-style: normal; }
+@media (max-width: 768px) {
+  .ds-case-filters { display: flex; }
+  .ds-case-post { grid-template-columns: 1fr; gap: 10px; }
+  .ds-case-tag, .ds-case-title, .ds-case-body { grid-column: 1; grid-row: auto; }
+  .ds-case-body { margin-top: 8px; padding-left: 14px; }
+}
+
+/* Cada resolución se lee de arriba hacia abajo, sin recortes. */
+.ds-case-grid { max-width: 1100px; margin-inline: auto; gap: 18px; }
+.ds-case-post, .ds-case-post.ds-reveal {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+  height: auto; padding: clamp(24px, 3vw, 40px); opacity: 1; transform: none;
+}
+.ds-case-tag { margin-bottom: 12px; color: #2b227f; font-size: 13px; line-height: 1.4; }
+.ds-case-title { width: 100%; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+.ds-case-body { width: 100%; max-width: 78ch; margin: 20px 0 0; padding: 0; border: 0; color: #263b4a; font-size: 17px; line-height: 1.8; overflow: visible; overflow-wrap: anywhere; text-align: left; }
+.ds-case-body::before { content: 'Fragmento de la resolución'; display: block; margin-bottom: 9px; color: #607785; font-size: 12px; font-weight: 700; letter-spacing: .04em; line-height: 1.4; text-transform: uppercase; }
+@media (max-width: 600px) {
+  .ds-case-post, .ds-case-post.ds-reveal { padding: 22px; }
+  .ds-case-body { font-size: 16px; line-height: 1.75; }
+}

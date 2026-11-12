@@ -1,0 +1,14 @@
+﻿/* Alegam premium overrides for the legacy case archive */
+:root{--archive-navy:#24215f;--archive-paper:#f7f6f1}
+body,.body,.main{background:var(--archive-paper)!important;color:var(--archive-navy)!important;font-family:Arial,Helvetica,sans-serif!important;font-size:16px;line-height:1.65}
+h1,h2,h3,h4,h5,h6,p,li,a,span{font-family:Arial,Helvetica,sans-serif!important;color:inherit}
+#header .header-body,.page-header,.main .container,.main .container .row{background:transparent!important}
+#header .header-body{backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);background:rgba(247,246,241,.8)!important;border-bottom:1px solid rgba(36,33,95,.18)!important}
+.container{width:calc(100% - clamp(36px,8vw,128px))!important;max-width:none!important}
+.page-header{padding:clamp(28px,5vw,60px) 0!important}
+.page-header h1{font-size:clamp(36px,5vw,64px)!important;font-weight:700!important;line-height:1.1!important}
+.main .card,.main .featured-box,.main .blog-posts article{background:rgba(247,246,241,.72)!important;color:var(--archive-navy)!important;border:1px solid rgba(36,33,95,.18)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 10px 30px rgba(36,33,95,.08)!important}
+.main .card h2,.main h2 a,.main h3,.main p,.main li{color:var(--archive-navy)!important}
+.main .btn,.main a.btn,.main .button{background:var(--archive-navy)!important;color:var(--archive-paper)!important;border:1px solid var(--archive-navy)!important}
+.main a:hover{opacity:.72}
+@media(max-width:767px){.container{width:calc(100% - 36px)!important}.page-header h1{font-size:36px!important}}
